@@ -12,5 +12,5 @@
 		"editor.codeActionsOnSave": {
 			"source.fixAll.stylelint": true
 		}
-	},
+	}
 }
