@@ -21,6 +21,10 @@
       "type": "string",
       "source": "html",
       "selector": "h2"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "left"
     }
   }
 }
