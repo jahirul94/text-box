@@ -3,39 +3,82 @@ import {
 	useBlockProps,
 	RichText,
 	BlockControls,
-	AlignmentToolbar
+	AlignmentToolbar,
+	InspectorControls,
 } from '@wordpress/block-editor';
 import './editor.scss';
-// import { ToolbarGroup, ToolbarButton, DropdownMenu } from '@wordpress/components';
+import {
+	__experimentalBoxControl as BoxControl,
+	PanelBody,
+	RangeControl,
+} from '@wordpress/components';
+import classnames from 'classnames';
+const { __Visualizer: BoxControlVisualizer } = BoxControl;
 
-export default function Edit({ attributes, setAttributes }) {
-	const { text, alignment } = attributes;
+export default function Edit( props ) {
+	const { attributes, setAttributes } = props;
+	const { text, alignment, style, shadow, shadowOpacity } = attributes;
 
-	const onChangeText = (newText) => {
-		setAttributes({ text: newText });
-	}
-	const onChangeAlignment = (newAlignment) => {
-		setAttributes({ alignment: newAlignment });
-	}
+	const onChangeAlignment = ( newAlignment ) => {
+		setAttributes( { alignment: newAlignment } );
+	};
+
+	const onChangeShadowOpacity = ( newShadowOpacity ) => {
+		setAttributes( { shadowOpacity: newShadowOpacity } );
+	};
+	const onChangeText = ( newText ) => {
+		setAttributes( { text: newText } );
+	};
+
+	const classes = classnames( `text-box-align-${ alignment }`, {
+		'has-shadow': shadow,
+		[ `shadow-opacity-${ shadowOpacity }` ]: shadow && shadowOpacity,
+	} );
+
+	const toggleShadow = () => {
+		setAttributes( { shadow: ! shadow } );
+	};
 
 	return (
 		<>
-			<BlockControls>
+			<InspectorControls>
+				{ shadow && (
+					<PanelBody title={ __( 'Shadow Setting', 'text-box' ) }>
+						<RangeControl
+							label={ __( 'Shadow Opacity', 'text-box' ) }
+							value={ shadowOpacity }
+							min={ 10 }
+							max={ 40 }
+							step={ 10 }
+							onChange={ onChangeShadowOpacity }
+						/>
+					</PanelBody>
+				) }
+			</InspectorControls>
+			<BlockControls
+				controls={ [
+					{
+						icon: 'admin-page',
+						title: __( 'Shadow', 'text-box' ),
+						onClick: toggleShadow,
+						isActive: shadow,
+					},
+				] }
+			>
 				<AlignmentToolbar
-					onChange={(value) => onChangeAlignment(value)}
-					value={alignment}
+					value={ alignment }
+					onChange={ onChangeAlignment }
 				/>
 			</BlockControls>
-
 			<RichText
-				{...useBlockProps({
-					className:`text-box-align-${alignment}`
-				})}
-				onChange={(value) => onChangeText(value)}
-				placeholder={__('Your Text', 'text-box')}
-				value={text}
-				tagName="h2"
-				allowedFormats={[]}
+				{ ...useBlockProps( {
+					className: classes,
+				} ) }
+				onChange={ onChangeText }
+				value={ text }
+				placeholder={ __( 'Your Text', 'text-box' ) }
+				tagName="p"
+				allowedFormats={ [] }
 			/>
 		</>
 	);

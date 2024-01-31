@@ -7,10 +7,29 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-blocks-course-text-box {
-  background-color: #21759b;
-  color: #fff;
-  padding: 10px;
+.wp-block-blocks-course-text-box.is-style-squared {
+  border-radius: 0;
+}
+.wp-block-blocks-course-text-box.is-style-rounded {
+  border-radius: 20px;
+}
+.wp-block-blocks-course-text-box .text-box-title {
+  margin: 0;
+}
+.wp-block-blocks-course-text-box.has-shadow {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+.wp-block-blocks-course-text-box.has-shadow.shadow-opacity-10 {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.wp-block-blocks-course-text-box.has-shadow.shadow-opacity-20 {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.wp-block-blocks-course-text-box.has-shadow.shadow-opacity-30 {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+.wp-block-blocks-course-text-box.has-shadow.shadow-opacity-40 {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
 }
 .wp-block-blocks-course-text-box.text-box-align-right {
   text-align: right;
